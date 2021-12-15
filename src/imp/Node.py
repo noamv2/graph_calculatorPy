@@ -30,8 +30,6 @@ class Node(object):
 
     # setter method for id
     def set__id(self, x):
-        if x < 0:
-            raise ValueError("the id is invalid")
         self._id = x
 
     # getter method for pos

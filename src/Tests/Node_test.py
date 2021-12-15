@@ -34,6 +34,32 @@ class NodeTest(unittest.TestCase):
         n.set__tag(2)
         self.assertEqual(n.get__tag(), 2)
 
+    def test_set_tag(self):
+        e = Node(3, [12.0, 5, 0])
+        e.set__tag(1)
+        self.assertEqual(e.get__tag(), 1)
+
+    def test_set_id(self):
+        n = Node(0, [30.9, 31.8, 0])
+        n.set__id(5)
+        self.assertEqual(n.get__id(), 5)
+
+        n.set__id(0)
+        self.assertEqual(n.get__id(), 0)
+
+    def test_set_pos(self):
+        n = Node(0, [30.9, 31.8, 0])
+        n.set__pos([12.0, 5, 0])
+        self.assertEqual(n.get__pos(), [12.0, 5, 0])
+
+    def test_str(self):
+        n = Node(0, [30.9, 31.8, 0])
+        self.assertEqual(n.__str__(), "Node(0,[30.9, 31.8, 0],0)")
+
+    def test_repr(self):
+        n = Node(0, [30.9, 31.8, 0])
+        self.assertEqual(n.__repr__(), "Node(0,[30.9, 31.8, 0],0)")
+
 
 if __name__ == '__main__':
     unittest.main()

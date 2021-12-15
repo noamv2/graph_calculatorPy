@@ -28,8 +28,6 @@ class Edge(object):
 
     # setter method for src
     def set_src(self, x):
-        if x < 0:
-            raise ValueError("the src is invalid")
         self.src = x
 
     # getter method for w
@@ -48,6 +46,4 @@ class Edge(object):
 
     # setter method for dest
     def set_dest(self, x):
-        if x < 0:
-            raise ValueError("the dest is invalid")
         self.dest = x
