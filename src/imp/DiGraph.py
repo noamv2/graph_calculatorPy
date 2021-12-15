@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
 
 class Container:
-    def __init__(self, node: Node, ):
+    def __init__(self, node: Node):
         self.node = node
         self.outEdges = dict
         self.inEdges = dict
