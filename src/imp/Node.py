@@ -1,7 +1,7 @@
 """
 This class represents a node in a graph
 Node has the following info:
-id : integer the represents which node it is, every node has it's own id number
+id : integer that represents which node it is, every node has it's own id number
 pos : list with 3 parameters that represents a geographic point on the globe
 tag : integer that represents the current state of node (used for algorithms i.e. BFS)
 0 --> white, 1--> gray, 2--> black
@@ -11,10 +11,10 @@ from typing import List
 
 class Node(object):
     # constructor
-    def __init__(self, _id: int, _tag=int, _pos: List = [float]):
+    def __init__(self, _id: int, _pos: List = [float], _tag=int):
         self._id = _id
-        self._tag = _tag
         self._pos = _pos
+        self._tag = 0
 
     # string of information
     def __str__(self):
