@@ -6,17 +6,12 @@ d = DiGraph("../../data/A0.json")
 
 
 class TestDiGraph(TestCase):
-    # d = DiGraph("../../data/A0.json")
-    # @classmethod
-    # def setUpClass(cls):
-    #     d = DiGraph("../../data/A0.json")
-    # cls._connection = createExpensiveConnectionObject()
 
     def test_get_node(self):
         self.assertTrue(d.get_node(4).get__id() == 4)
         self.assertTrue(d.get_node(2).get__id() == 2)
         self.assertTrue(d.get_node(8).get__id() == 8)
-        self.assertTrue(d.get_node(15) == None)
+        self.assertTrue(d.get_node(15) is None)
 
     def test_v_size(self):
         self.assertTrue(d.v_size() == 11)
@@ -34,26 +29,51 @@ class TestDiGraph(TestCase):
         self.assertTrue(d.e_size() == 22)
 
     def test_get_all_v(self):
-        print(d.get_all_v())
-        # self.assertTrue(d.get_all_v() is d.nodes)
+        self.assertTrue(d.get_all_v().keys().__str__() == "dict_keys([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])")
+        d.add_node(15, (32, 35))
+        self.assertTrue(d.get_all_v().keys().__str__() == "dict_keys([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15])")
+        d.remove_node(15)
+        self.assertTrue(d.get_all_v().keys().__str__() == "dict_keys([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])")
 
     def test_all_in_edges_of_node(self):
-        print(d.all_in_edges_of_node(3).keys())
+        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4'])")
+        d.add_edge(1, 3, 10)
+        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4', '1'])")
+        d.remove_edge(1, 3)
+        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4'])")
 
     def test_all_out_edges_of_node(self):
-        print(d.all_out_edges_of_node(3).keys())
+        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4'])")
+        d.add_edge(3, 1, 10)
+        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4', '1'])")
+        d.remove_edge(3, 1)
+        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4'])")
 
     def test_get_mc(self):
-        print(d.mc)
+        self.assertTrue(d.mc == 0)
+        d.add_edge(3, 1, 10)
+        self.assertTrue(d.mc == 1)
+        d.remove_edge(3, 1)
+        self.assertTrue(d.mc == 2)
+        d.add_node(15, (32, 35))
+        self.assertTrue(d.mc == 3)
+        d.remove_node(15)
+        self.assertTrue(d.mc == 4)
 
     def test_add_edge(self):
-        pass
+        self.assertTrue(d.add_edge(3, 1, 10))
+        self.assertFalse(d.add_edge(3, 1, 15))
 
     def test_add_node(self):
-        pass
+        self.assertTrue(d.add_node(15, (32, 35)))
+        self.assertFalse(d.add_node(15, (32, 35)))
 
     def test_remove_node(self):
-        pass
+        self.assertFalse(d.remove_node(15))
+        d.add_node(15, (32, 35))
+        self.assertTrue(d.remove_node(15))
 
     def test_remove_edge(self):
-        pass
+        self.assertFalse(d.remove_edge(3, 1))
+        d.add_edge(3, 1, 10)
+        self.assertTrue(d.remove_edge(3, 1))
