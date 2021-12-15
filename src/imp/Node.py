@@ -11,7 +11,7 @@ from typing import List
 
 class Node(object):
     # constructor
-    def __init__(self, _id: int, _pos: List = [float], _tag=int):
+    def __init__(self, _id: int, _pos: List[float]):
         self._id = _id
         self._pos = _pos
         self._tag = 0
@@ -52,4 +52,4 @@ class Node(object):
             raise ValueError("the tag is invalid")
         if t > 2:
             raise ValueError("the tag is invalid")
-        self._id = t
+        self._tag = t
