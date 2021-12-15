@@ -85,16 +85,17 @@ class DiGraph(GraphInterface, ABC):
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if node_id not in self.nodes:
-            node = Node(node_id, {pos[0], pos[1], 0.0})
+            node = Node(node_id, [pos[0], pos[1], 0.0])
             self.adjList[str(node_id)] = Container(node)
             self.nodes[node_id] = node
+            self.mc += 1
             return True
 
         return False
 
     def remove_node(self, node_id: int) -> bool:
         if node_id in self.nodes:
-            outE=list(self.adjList[str(node_id)].outEdges.keys())
+            outE = list(self.adjList[str(node_id)].outEdges.keys())
             inE = list(self.adjList[str(node_id)].inEdges.keys())
             for i in outE:
                 self.remove_edge(node_id, i)
