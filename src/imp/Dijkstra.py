@@ -30,20 +30,21 @@ class Dijkstra:
         que = []
         hp.heappush(que, (0, src))  # add the source with distance 0 (to itself)
 
-        while not que:
+        while len(que) > 0:
             # pop the smallest vertex
             dis, u = hp.heappop(que)
             visited[u] = True  # mark the node as visited
 
             # traverse U's neighbours
-            edges = self.graph.all_out_edges_of_node(self.graph.get_node(u))
+            edges = self.graph.all_out_edges_of_node(u)
 
             for ID, w in edges.items():
-                if not visited[ID]:
+                # print(visited[ID])
+                if not visited[int(ID)]:
                     altDis = dis + w.get_w()  # compute the distance to U + dis(u,v)
-                    if altDis < distances[ID]:
-                        distances[ID] = altDis
-                        prev[ID] = u
-                        hp.heappush(que, (altDis, ID))  # requeue v with the new priority
+                    if altDis < distances[int(ID)]:
+                        distances[int(ID)] = altDis
+                        prev[int(ID)] = u
+                        hp.heappush(que, (altDis, int(ID)))  # requeue v with the new priority
 
             return prev, distances
