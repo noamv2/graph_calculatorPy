@@ -2,9 +2,9 @@ import copy
 import json
 from abc import ABC
 
-from Node import Node
-from Edge import Edge
+from src.imp.Edge import Edge
 from src.GraphInterface import GraphInterface
+from src.imp.Node import Node
 
 
 class Container:
@@ -46,7 +46,9 @@ class DiGraph(GraphInterface, ABC):
         self.adjList = adjList
         self.nodes = nodes
 
-    def get_node(self, node_id) -> Node:
+    def get_node(self, node_id):
+        if node_id not in self.nodes:
+            return
         return self.nodes[node_id]
 
     def v_size(self) -> int:
@@ -72,7 +74,7 @@ class DiGraph(GraphInterface, ABC):
         return self.mc
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
-        if id1 in self.nodes and id2 in self.nodes and id2 not in self.adjList[str(id1)].outEdges:
+        if id1 in self.nodes and id2 in self.nodes and str(id2) not in self.adjList[str(id1)].outEdges:
             edge = Edge(id1, weight, id2)
             self.adjList[str(id1)].outEdges[str(id2)] = edge
             self.adjList[str(id2)].inEdges[str(id1)] = edge
@@ -83,30 +85,32 @@ class DiGraph(GraphInterface, ABC):
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if node_id not in self.nodes:
-            node = Node(node_id, {pos[0], pos[1], "0.0"})
+            node = Node(node_id, {pos[0], pos[1], 0.0})
             self.adjList[str(node_id)] = Container(node)
-            self.nodes[str(node_id)] = node
+            self.nodes[node_id] = node
             return True
 
         return False
 
     def remove_node(self, node_id: int) -> bool:
         if node_id in self.nodes:
-            for i in self.adjList[str(node_id)].outEdges:
+            outE=list(self.adjList[str(node_id)].outEdges.keys())
+            inE = list(self.adjList[str(node_id)].inEdges.keys())
+            for i in outE:
                 self.remove_edge(node_id, i)
-            for i in self.adjList[str(node_id)].inEdges:
+            for i in inE:
                 self.remove_edge(i, node_id)
 
             del self.adjList[str(node_id)]
-            del self.nodes[str(node_id)]
+            del self.nodes[node_id]
             self.mc += 1
             return True
         return False
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        if node_id2 in self.adjList[str(node_id1)].outEdges:
+        if str(node_id2) in self.adjList[str(node_id1)].outEdges:
             del self.adjList[str(node_id1)].outEdges[str(node_id2)]
-            del self.adjList[str(node_id2)].outEdges[str(node_id1)]
+            del self.adjList[str(node_id2)].inEdges[str(node_id1)]
             self.mc += 1
             return True
         return False
