@@ -1,5 +1,6 @@
 import math
 from typing import List
+import heapq as hp
 from DiGraph import DiGraph
 
 from src.GraphAlgoInterface import GraphAlgoInterface
@@ -17,6 +18,8 @@ class GraphAlgo(GraphAlgoInterface):
         pass
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
+        src = id1
+        dest = id2
         # get the number of nodes from the graph
         size = self.graph.v_size()
 
@@ -46,6 +49,8 @@ class GraphAlgo(GraphAlgoInterface):
                         prev[int(ID)] = u
                         hp.heappush(que, (altDis, int(ID)))  # requeue v with the new priority
 
+        return distances[dest], self.getPath(prev, src, dest)
+
     def plot_graph(self) -> None:
         pass
 
@@ -56,9 +61,27 @@ class GraphAlgo(GraphAlgoInterface):
         pass
 
     def centerPoint(self) -> (int, float):
-        pass
+
+        # calculate the eccentricity of each node
+        eccentricity = {}  # saving the eccentricity of each node
+        for node in self.graph.get_all_v():
+            pass
+
+
+
+
 
     def plot_graph(self) -> None:
         pass
 
-    def getPath(self, nodes: list):
+    @staticmethod
+    def getPath(prev: dict, src, dest):
+
+        path = [dest]
+        while dest != src:
+            dest = prev[dest]
+            path.insert(0, dest)
+
+        path.insert(0, src)
+
+        return path
