@@ -1,22 +1,14 @@
+import heapq as hp
 import math
-from typing import List
 from DiGraph import DiGraph
 
-from src.GraphAlgoInterface import GraphAlgoInterface
 
+class Dijkstra:
 
-class GraphAlgo(GraphAlgoInterface):
+    def __init__(self, graph: DiGraph):
+        self.graph = graph
 
-    def __init__(self, g: DiGraph):
-        self.graph = g
-
-    def get_graph(self):
-        return self.graph
-
-    def save_to_json(self, file_name: str) -> bool:
-        pass
-
-    def shortest_path(self, id1: int, id2: int) -> (float, list):
+    def shp(self, src: int):
         # get the number of nodes from the graph
         size = self.graph.v_size()
 
@@ -46,19 +38,4 @@ class GraphAlgo(GraphAlgoInterface):
                         prev[int(ID)] = u
                         hp.heappush(que, (altDis, int(ID)))  # requeue v with the new priority
 
-    def plot_graph(self) -> None:
-        pass
-
-    def load_from_json(self, file_name: str) -> bool:
-        pass
-
-    def TSP(self, node_lst: List[int]) -> (List[int], float):
-        pass
-
-    def centerPoint(self) -> (int, float):
-        pass
-
-    def plot_graph(self) -> None:
-        pass
-
-    def getPath(self, nodes: list):
+            return prev, distances
