@@ -32,11 +32,10 @@ class Dijkstra:
 
             for ID, w in edges.items():
                 if not visited[int(ID)]:
-                    altDis = dis + w # compute the distance to U + dis(u,v)
+                    altDis = dis + w  # compute the distance to U + dis(u,v)
                     if altDis < distances[int(ID)]:
                         distances[int(ID)] = altDis
                         prev[int(ID)] = u
-                        hp.heappush(que, (altDis, int(ID))) # requeue v with the new priority
+                        hp.heappush(que, (altDis, int(ID)))  # requeue v with the new priority
 
             return prev, distances
-
