@@ -13,13 +13,13 @@ from typing import List
 class Node(object):
     # constructor
     def __init__(self, _id: int, _pos: List[float]):
-        self._id = _id
-        self._pos = _pos
-        self._tag = 0
+        self.id = _id
+        self.pos = _pos
+        self.tag = 0
 
     # string of information
     def __str__(self):
-        return f'Node({self._id},{self._pos},{self._tag})'
+        return f'Node({self.id},{self.pos},{self.tag})'
 
     # string for inside the list information
     def __repr__(self):
@@ -27,23 +27,23 @@ class Node(object):
 
     # getter method for id
     def get__id(self):
-        return self._id
+        return self.id
 
     # setter method for id
     def set__id(self, x):
-        self._id = x
+        self.id = x
 
     # getter method for pos
     def get__pos(self):
-        return self._pos
+        return self.pos
 
     # setter method for pos
     def set__pos(self, val):
-        self._pos = val
+        self.pos = val
 
     # getter method for tag
     def get__tag(self):
-        return self._tag
+        return self.tag
 
     # setter method for tag
     def set__tag(self, t):
@@ -51,4 +51,4 @@ class Node(object):
             raise ValueError("the tag is invalid")
         if t > 2:
             raise ValueError("the tag is invalid")
-        self._tag = t
+        self.tag = t

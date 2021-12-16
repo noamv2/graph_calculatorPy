@@ -29,15 +29,15 @@ class TestGraphAlgo(TestCase):
 
         self.graph5 = DiGraph("../../data/A5.json")
         self.algo5 = GraphAlgo(self.graph5)
-
+        #
         self.graph1000 = DiGraph("../../data/1000Nodes.json")
         self.algo1000 = GraphAlgo(self.graph1000)
-
-        self.graph10000 = DiGraph("../../data/10000Nodes.json")
-        self.algo10000 = GraphAlgo(self.graph10000)
-
-        self.graph10000notCon = DiGraph("../../data/10000Nodes_notcon.json")
-        self.algo10000notCon = GraphAlgo(self.graph10000notCon)
+        #
+        # self.graph10000 = DiGraph("../../data/10000Nodes.json")
+        # self.algo10000 = GraphAlgo(self.graph10000)
+        #
+        # self.graph10000notCon = DiGraph("../../data/10000Nodes_notcon.json")
+        # self.algo10000notCon = GraphAlgo(self.graph10000notCon)
 
         # self.graph100000 = DiGraph("../../data/100000.json")
         # self.algo100000 = GraphAlgo(self.graph100000)
@@ -50,6 +50,7 @@ class TestGraphAlgo(TestCase):
 
     def test_save_to_json(self):
         self.algo.save_to_json("testG.json")
+        # self.algo.load_from_json("testG.json")
 
 
 
@@ -70,7 +71,7 @@ class TestGraphAlgo(TestCase):
         self.assertEqual(self.algo0.centerPoint()[0], 7)
         self.assertEqual(self.algo1.centerPoint()[0], 8)
         self.assertEqual(self.algo5.centerPoint()[0], 40)
-        # self.assertEqual(self.algo1000.centerPoint()[0], 362)
+        self.assertEqual(self.algo1000.centerPoint()[0], 362)
         # self.assertEqual(self.algo10000.centerPoint()[0], 3846)
 
     def test_TSP(self):

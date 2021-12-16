@@ -1,4 +1,5 @@
 import cProfile
+import logging
 import math
 from typing import List
 import heapq as hp
@@ -16,11 +17,26 @@ class GraphAlgo(GraphAlgoInterface):
         return self.graph
 
     def save_to_json(self, file_name: str) -> bool:
+        try:
+        nodes = json.dumps(list(self.graph.get_all_v().values()), default=lambda o: o.__dict__, sort_keys=True,indent=4)
+        lstN = json.loads(nodes)
+        for d in lstN:
+            del d["tag"]
 
-        jsonstr = json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        lstE = []
+        for node in self.graph.get_all_v().values():
+            for edge in self.graph.all_out_edges_of_node(node.get__id()).values():
+                lstE.append(edge)
+
+        edges = json.dumps(lstE, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        lstEd = json.loads(edges)
+
+        dic = {"Edges": lstEd, "Nodes": lstN}
+        s = json.dumps(dic, indent=4)
+
         with open(file_name, 'w') as f:
-            f.write(jsonstr)
-        pass
+            f.write(s)
+        return True
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
 
@@ -31,7 +47,14 @@ class GraphAlgo(GraphAlgoInterface):
         pass
 
     def load_from_json(self, file_name: str) -> bool:
-        pass
+        try:
+            self.graph = DiGraph(file_name)
+
+        except Exception as e:
+            logging.exception(e)
+            return False
+
+        return True
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         minDist = dist = math.inf
