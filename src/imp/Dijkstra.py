@@ -1,6 +1,6 @@
 import heapq as hp
 import math
-from DiGraph import DiGraph
+from src.imp.DiGraph import DiGraph
 
 
 class Dijkstra:
@@ -19,16 +19,18 @@ class Dijkstra:
         # create a list that keep track of visited nodes
         visited = {}
 
-        for k, v in nodes.items():
-            visited[k] = False
-            distances[k] = math.inf
-            prev[k] = None
-
-        distances[src] = 0
-
         # and a queue based on heap
         que = []
-        hp.heappush(que, (0, src))  # add the source with distance 0 (to itself)
+        hp.heappush(que, (0, src))
+
+        for k, v in nodes.items():
+            if k != src:
+                visited[k] = False
+                distances[k] = math.inf
+                prev[k] = None
+
+
+        distances[src] = 0
 
         while len(que) > 0:
             # pop the smallest vertex
@@ -47,4 +49,4 @@ class Dijkstra:
                         prev[int(ID)] = u
                         hp.heappush(que, (altDis, int(ID)))  # requeue v with the new priority
 
-            return prev, distances
+        return prev, distances
