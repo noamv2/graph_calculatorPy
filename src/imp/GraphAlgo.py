@@ -43,7 +43,7 @@ class GraphAlgo(GraphAlgoInterface):
             return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
-
+        # perform dijkstra on the source node and return
         prev, distances = self.dijkstra(id1)
         return distances[id2], self.getPath(prev, id1, id2)
 
