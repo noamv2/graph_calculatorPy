@@ -42,6 +42,18 @@ class TestGraphAlgo(TestCase):
         # self.graph100000 = DiGraph("../../data/100000.json")
         # self.algo100000 = GraphAlgo(self.graph100000)
 
+    def test_get_graph(self):
+        self.assertIsNotNone(self.algo.get_graph())
+        self.assertIsNotNone(self.algo1.get_graph())
+        self.assertIsNotNone(self.algo1000.get_graph())
+        self.assertIsNotNone(self.algo5.get_graph())
+
+    def test_save_to_json(self):
+        self.algo.save_to_json("testG.json")
+
+
+
+
     def test_shortest_path(self):
         self.assertEqual(self.algo.shortest_path(1, 2)[0], 45)
         self.assertEqual(self.algo.shortest_path(1, 3)[0], 45)
@@ -59,6 +71,7 @@ class TestGraphAlgo(TestCase):
         self.assertEqual(self.algo1.centerPoint()[0], 8)
         self.assertEqual(self.algo5.centerPoint()[0], 40)
         # self.assertEqual(self.algo1000.centerPoint()[0], 362)
+        # self.assertEqual(self.algo10000.centerPoint()[0], 3846)
 
     def test_TSP(self):
         # lst = [6, 2, 4]
