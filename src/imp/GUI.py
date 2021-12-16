@@ -6,15 +6,16 @@ import pandas as pd
 import numpy as np
 
 
-d = DiGraph("../../data/A1.json")
-nodes = d.get_all_v()  # all the nodes in the graph
-id_nums = []
-
-for _id in nodes:
-    id_nums.append(str(_id))
+#d = DiGraph("../../data/A0.json")
 
 
-def draw():
+def draw(di: DiGraph):
+    nodes = di.get_all_v()  # all the nodes in the graph
+    id_nums = []
+
+    for _id in nodes:
+        id_nums.append(str(_id))
+
     x = []
     y = []
     max_x = math.inf * (-1)
@@ -69,7 +70,7 @@ def draw():
 
         # plot line between points
         for node in nodes.values():
-            outE = d.all_out_edges_of_node(node.get__id())
+            outE = di.all_out_edges_of_node(node.get__id())
             for edge_out in outE:
 
                 # the x and y of src node
@@ -82,7 +83,7 @@ def draw():
 
                 # the x and y of dest node
                 dest_id = int(edge_out)
-                dest = d.get_node(dest_id).get__pos()
+                dest = di.get_node(dest_id).get__pos()
                 pos_dest = list(dest.split(","))
                 # x axis value list.
                 x_d.append((float(pos_dest[0]) - min_x) * scalelog)
