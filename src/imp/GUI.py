@@ -2,14 +2,14 @@ import math
 import string
 import matplotlib.pyplot as plt
 from DiGraph import DiGraph
-from matplotlib.widgets import Cursor
+import pandas as pd
 import numpy as np
+from matplotlib.patches import ConnectionPatch
 
 d = DiGraph("../../data/A0.json")
+nodes = d.get_all_v()  # all the nodes in the graph
 
-
-def draw_nodes():
-    nodes = d.get_all_v()  # all the nodes in the graph
+def draw():
     x = []
     y = []
     max_x = math.inf * (-1)
@@ -45,10 +45,48 @@ def draw_nodes():
 
     # Draw point based on above x, y axis values.
     fig, ax = plt.subplots(figsize=(8, 6))
-    ax.plot(x, y, 'o')
+    #ax.plot(x, y, c='red',  marker='o')
+    dots = plt.scatter(x, y, c='red', marker='o', s=20, zorder=3)
+
+    x_s = []
+    y_s = []
+    x_d = []
+    y_d = []
+    count = 0
+    # plot line between points
+    for node in nodes.values():
+        for edge_out in d.all_out_edges_of_node(node.get__id()):
+            # the x and y of src node
+            src = node.get__pos()
+            pos_src = list(src.split(","))
+            # x axis value list.
+            x_s.append((float(pos_src[0]) - min_x) * scalelog)
+            # y axis value list.
+            y_s.append((float(pos_src[1]) - min_y) * scalelat)
+
+            # the x and y of dest node
+            dest_id = edge_out.get_dest()
+            dest = d.get_node(int(dest_id))
+            pos_dest = list(dest.split(","))
+            # x axis value list.
+            x_d.append((float(pos_dest[0]) - min_x) * scalelog)
+            # y axis value list.
+            y_d.append((float(pos_dest[1]) - min_y) * scalelat)
+
+            xyA = (x_s[count], y_s[count])
+            xyB = (x_d[count], y_d[count])
+            count+1
+            coordsA = "data"
+            coordsB = "data"
+            con = ConnectionPatch(xyA, xyB, coordsA, coordsB,
+                                  arrowstyle="-|>", shrinkA=5, shrinkB=5,
+                                  mutation_scale=20, fc="w")
+
+            dots.add_artist(con)
+
 
     plt.show()
 
 
-if __name__ == '__main__':
-    draw_nodes()
+if _name_ == '_main_':
+    draw()
