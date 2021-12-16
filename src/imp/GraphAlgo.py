@@ -58,18 +58,61 @@ class GraphAlgo(GraphAlgoInterface):
         pass
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
-        pass
+        minDist = dist = math.inf
+        minAns = []
+        citisMap = {}
+        dijkstraMap = {}
+
+        for ind in node_lst:
+            src = self.graph.get_node(ind)
+            for n in node_lst:
+                citisMap[n] = self.graph.get_node(n)
+            dist = 0
+            ans = [src]
+            del citisMap[ind]
+            while len(citisMap) > 0:
+                minNei = None
+                minWeight = math.inf
+                dijkstra = {}
+                if ind in dijkstraMap:
+                    dijkstra = dijkstraMap[ind]
+                else:
+                    dijkstra = self.dijkstra(ind)
+                    dijkstraMap[ind] = dijkstra
+                distance = dijkstra[1]
+                path = dijkstra[0]
+                for nodeData in citisMap.values():
+                    if distance[nodeData.get__id()] < minWeight:
+                        minNei = nodeData
+                        minWeight = distance[nodeData.get__id()]
+                if minNei is None:
+                    return None
+                dist += distance[minNei.get__id()]
+                ans.append(self.graph.get_node(minNei.get__id()))
+                del citisMap[minNei.get__id()]
+                node = path[minNei.get__id()]
+                size = len(ans) - 1
+                while node != src.get__id():
+                    ans.insert(size, self.graph.get_node(int(node)))
+                    del citisMap[int(node)]
+                    node = path[int(node)]
+                src = minNei
+            if dist < minDist:
+                minAns = ans
+                minDist = dist
+        return minAns
 
     def centerPoint(self) -> (int, float):
 
         # calculate the eccentricity of each node
         eccentricity = {}  # saving the eccentricity of each node
-        for node in self.graph.get_all_v():
-            pass
-
-
-
-
+        for node in self.graph.get_all_v().values():
+            distance = self.dijkstra(node.get__id())[1]
+            max_value = max(distance.values())
+            eccentricity[node.get__id()] = max_value
+        min_value = min(eccentricity.values())
+        ind = list(eccentricity.keys())[list(eccentricity.values()).index(min_value)]
+        return ind, min_value
 
     def plot_graph(self) -> None:
         pass
@@ -85,3 +128,7 @@ class GraphAlgo(GraphAlgoInterface):
         path.insert(0, src)
 
         return path
+
+    @staticmethod
+    def dijkstra(src: int) -> (dict, dict):
+        return {}, {}
