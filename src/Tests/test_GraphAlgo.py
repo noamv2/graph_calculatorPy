@@ -50,9 +50,7 @@ class TestGraphAlgo(TestCase):
 
     def test_save_to_json(self):
         self.algo.save_to_json("testG.json")
-        # self.algo.load_from_json("testG.json")
-
-
+        self.algo.load_from_json("testG.json")
 
 
     def test_shortest_path(self):
