@@ -1,7 +1,7 @@
 import math
 import string
 import matplotlib.pyplot as plt
-from DiGraph import DiGraph
+from src.imp.DiGraph import DiGraph
 import pandas as pd
 import numpy as np
 

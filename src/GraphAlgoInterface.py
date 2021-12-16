@@ -72,4 +72,5 @@ class GraphAlgoInterface:
         Otherwise, they will be placed in a random but elegant manner.
         @return: None
         """
+
         raise NotImplementedError

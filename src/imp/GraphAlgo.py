@@ -1,10 +1,10 @@
-import cProfile
 import logging
 import math
 from typing import List
 import heapq as hp
 from src.imp.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
+from src.imp.GUI import draw
 import json
 
 
@@ -14,11 +14,18 @@ class GraphAlgo(GraphAlgoInterface):
         self.graph = g
 
     def get_graph(self):
+        """  :return: the directed graph on which the algorithm works on."""
         return self.graph
 
     def save_to_json(self, file_name: str) -> bool:
+        """
+        Saves the graph in JSON format to a file
+        @param file_name: The path to the out file
+        @return: True if the save was successful, False o.w.
+             """
         try:
-            nodes = json.dumps(list(self.graph.get_all_v().values()), default=lambda o: o.__dict__, sort_keys=True,indent=4)
+            nodes = json.dumps(list(self.graph.get_all_v().values()), default=lambda o: o.__dict__, sort_keys=True,
+                               indent=4)
             lstN = json.loads(nodes)
             for d in lstN:
                 del d["tag"]
@@ -43,14 +50,24 @@ class GraphAlgo(GraphAlgoInterface):
             return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
-        # perform dijkstra on the source node and return
+        """
+        Returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm
+        @param id1: The start node id
+        @param id2: The end node id
+        @return: The distance of the path, a list of the nodes ids that the path goes through
+        """
+        # perform dijkstra on the source node and return the path and distance
         prev, distances = self.dijkstra(id1)
+        if distances[id2] == math.inf:
+            return math.inf
         return distances[id2], self.getPath(prev, id1, id2)
 
-    def plot_graph(self) -> None:
-        pass
-
     def load_from_json(self, file_name: str) -> bool:
+        """
+        Loads a graph from a json file.
+        @param file_name: The path to the json file
+        @returns True if the loading was successful, False o.w.
+        """
         try:
             self.graph = DiGraph(file_name)
 
@@ -61,22 +78,30 @@ class GraphAlgo(GraphAlgoInterface):
         return True
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
+        """
+        Finds the shortest path that visits all the nodes in the list
+        :param node_lst: A list of nodes id's
+        :return: A list of the nodes id's in the path, and the overall distance
+        """
         minDist = dist = math.inf
         minAns = []
         citisMap = {}
         dijkstraMap = {}
-
+        # we construct several paths, each time starting from different node in cities
         for ind in node_lst:
             src = self.graph.get_node(ind)
+            # we add all the cities to temp dictionary
             for n in node_lst:
                 citisMap[n] = self.graph.get_node(n)
             dist = 0
             ans = [src]
             del citisMap[ind]
+            # when we visit a city we remove it from the temp list
             while len(citisMap) > 0:
                 minNei = None
                 minWeight = math.inf
                 dijkstra = {}
+                # if we already performed dijkstra on the source then whe take the results
                 if src.get__id() in dijkstraMap:
                     dijkstra = dijkstraMap[src.get__id()]
                 else:
@@ -84,12 +109,14 @@ class GraphAlgo(GraphAlgoInterface):
                     dijkstraMap[src.get__id()] = dijkstra
                 distance = dijkstra[1]
                 path = dijkstra[0]
+                # find the min neighbor from the list
                 for nodeData in citisMap.values():
                     if distance[nodeData.get__id()] < minWeight:
                         minNei = nodeData
                         minWeight = distance[nodeData.get__id()]
                 if minNei is None:
                     return None
+                # add the distance of the path between the nodes and create a path
                 dist += distance[minNei.get__id()]
                 ans.append(self.graph.get_node(minNei.get__id()))
                 del citisMap[minNei.get__id()]
@@ -99,15 +126,20 @@ class GraphAlgo(GraphAlgoInterface):
                     ans.insert(size, self.graph.get_node(int(node)))
                     if node in citisMap:
                         del citisMap[int(node)]
-                    # if node in path:
                     node = path[node]
                 src = minNei
+            # update the minimum dest and path
             if dist < minDist:
                 minAns = ans
                 minDist = dist
+        # return the minimum path
         return minAns
 
     def centerPoint(self) -> (int, float):
+        """
+        Finds the node that has the shortest distance to it's farthest node.
+        :return: The nodes id, min-maximum distance
+        """
 
         # calculate the eccentricity of each node
         eccentricity = {}  # saving the eccentricity of each node
@@ -115,16 +147,24 @@ class GraphAlgo(GraphAlgoInterface):
             distance = self.dijkstra(node.get__id())[1]
             max_value = max(distance.values())
             eccentricity[node.get__id()] = max_value
+        # take the min value of all the eccentricity
         min_value = min(eccentricity.values())
         ind = list(eccentricity.keys())[list(eccentricity.values()).index(min_value)]
+        # return the min eccentricity and the node index
         return ind, min_value
 
     def plot_graph(self) -> None:
-        pass
+        """
+        Plots the graph.
+        If the nodes have a position, the nodes will be placed there.
+        Otherwise, they will be placed in a random but elegant manner.
+        @return: None
+        """
+        draw(self.graph)
 
     @staticmethod
     def getPath(prev: dict, src, dest):
-
+        # create a path from source to destination by backtracking the prev dict(
         path = []
         while dest != src:
             path.insert(0, dest)
@@ -166,7 +206,6 @@ class GraphAlgo(GraphAlgoInterface):
             edges = self.graph.all_out_edges_of_node(u)
 
             for ID, w in edges.items():
-                # print(visited[ID])
                 if not visited[int(ID)]:
                     altDis = dis + w.get_w()  # compute the distance to U + dis(u,v)
                     if altDis < distances[int(ID)]:
@@ -176,11 +215,8 @@ class GraphAlgo(GraphAlgoInterface):
 
         return prev, distances
 
-    # def main(self):
-
-
-if __name__ == '__main__':
-    g = DiGraph("../../data/1000Nodes.json");
-    alg = GraphAlgo(g)
-    alg.TSP()
-    cProfile.run('alg.')
+# if __name__ == '__main__':
+#     g = DiGraph("../../data/1000Nodes.json")
+#     alg = GraphAlgo(g)
+#     alg.TSP()
+#     cProfile.run('alg.')
