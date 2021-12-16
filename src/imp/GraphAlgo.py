@@ -1,8 +1,10 @@
+import cProfile
 import math
 from typing import List
 import heapq as hp
 from src.imp.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
+import json
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -14,6 +16,10 @@ class GraphAlgo(GraphAlgoInterface):
         return self.graph
 
     def save_to_json(self, file_name: str) -> bool:
+
+        jsonstr = json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        with open(file_name, 'w') as f:
+            f.write(jsonstr)
         pass
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
@@ -122,7 +128,7 @@ class GraphAlgo(GraphAlgoInterface):
                 prev[k] = None
 
         distances[src] = 0
-        prev[src]=src
+        prev[src] = src
 
         while len(que) > 0:
             # pop the smallest vertex
@@ -142,3 +148,12 @@ class GraphAlgo(GraphAlgoInterface):
                         hp.heappush(que, (altDis, int(ID)))  # requeue v with the new priority
 
         return prev, distances
+
+    # def main(self):
+
+
+if __name__ == '__main__':
+    g = DiGraph("../../data/1000Nodes.json");
+    alg = GraphAlgo(g)
+    alg.TSP()
+    cProfile.run('alg.')

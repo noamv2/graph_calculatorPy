@@ -1,4 +1,3 @@
-import copy
 import json
 from abc import ABC
 
@@ -62,13 +61,13 @@ class DiGraph(GraphInterface, ABC):
         return size
 
     def get_all_v(self) -> dict:
-        return copy.deepcopy(self.nodes)
+        return self.nodes
 
     def all_in_edges_of_node(self, id1: int) -> dict:
-        return copy.deepcopy(self.adjList[str(id1)].inEdges)
+        return self.adjList[str(id1)].inEdges
 
     def all_out_edges_of_node(self, id1: int) -> dict:
-        return copy.deepcopy(self.adjList[str(id1)].outEdges)
+        return self.adjList[str(id1)].outEdges
 
     def get_mc(self) -> int:
         return self.mc
