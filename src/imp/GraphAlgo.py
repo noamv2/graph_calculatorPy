@@ -1,7 +1,7 @@
 import math
 from typing import List
 import heapq as hp
-from src.imp.DiGraph import DiGraph
+from DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
 
 
