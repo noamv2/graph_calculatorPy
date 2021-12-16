@@ -4,12 +4,18 @@ import matplotlib.pyplot as plt
 from DiGraph import DiGraph
 import pandas as pd
 import numpy as np
-from matplotlib.patches import ConnectionPatch
 
-d = DiGraph("../../data/A0.json")
-nodes = d.get_all_v()  # all the nodes in the graph
 
-def draw():
+#d = DiGraph("../../data/A0.json")
+
+
+def draw(di: DiGraph):
+    nodes = di.get_all_v()  # all the nodes in the graph
+    id_nums = []
+
+    for _id in nodes:
+        id_nums.append(str(_id))
+
     x = []
     y = []
     max_x = math.inf * (-1)
@@ -35,6 +41,8 @@ def draw():
     scalelog = 1 / (max_x - min_x)
     scalelat = 1 / (max_y - min_y)
 
+
+
     for j in nodes.values():
         positions = j.get__pos()
         list_pos = list(positions.split(","))
@@ -43,50 +51,54 @@ def draw():
         # y axis value list.
         y.append((float(list_pos[1])-min_y)*scalelat)
 
-    # Draw point based on above x, y axis values.
-    fig, ax = plt.subplots(figsize=(8, 6))
-    #ax.plot(x, y, c='red',  marker='o')
-    dots = plt.scatter(x, y, c='red', marker='o', s=20, zorder=3)
 
-    x_s = []
-    y_s = []
-    x_d = []
-    y_d = []
-    count = 0
-    # plot line between points
-    for node in nodes.values():
-        for edge_out in d.all_out_edges_of_node(node.get__id()):
-            # the x and y of src node
-            src = node.get__pos()
-            pos_src = list(src.split(","))
-            # x axis value list.
-            x_s.append((float(pos_src[0]) - min_x) * scalelog)
-            # y axis value list.
-            y_s.append((float(pos_src[1]) - min_y) * scalelat)
 
-            # the x and y of dest node
-            dest_id = edge_out.get_dest()
-            dest = d.get_node(int(dest_id))
-            pos_dest = list(dest.split(","))
-            # x axis value list.
-            x_d.append((float(pos_dest[0]) - min_x) * scalelog)
-            # y axis value list.
-            y_d.append((float(pos_dest[1]) - min_y) * scalelat)
+        # Draw point based on above x, y axis values.
 
-            xyA = (x_s[count], y_s[count])
-            xyB = (x_d[count], y_d[count])
-            count+1
-            coordsA = "data"
-            coordsB = "data"
-            con = ConnectionPatch(xyA, xyB, coordsA, coordsB,
-                                  arrowstyle="-|>", shrinkA=5, shrinkB=5,
-                                  mutation_scale=20, fc="w")
+        # ax.plot(x, y, c='red',  marker='o')
+        dots = plt.scatter(x, y, c='red', marker='o', s=10, zorder=3)
 
-            dots.add_artist(con)
+        # Loop for annotation of all points
+        for i in range(len(x)):
+            plt.annotate(id_nums[i], (x[i], y[i] + 0.02))
+        counter = 0
+
+        x_s = []
+        y_s = []
+        x_d = []
+        y_d = []
+
+        # plot line between points
+        for node in nodes.values():
+            outE = di.all_out_edges_of_node(node.get__id())
+            for edge_out in outE:
+
+                # the x and y of src node
+                src = node.get__pos()
+                pos_src = list(src.split(","))
+                # x axis value list.
+                x_s.append((float(pos_src[0]) - min_x) * scalelog)
+                # y axis value list.
+                y_s.append((float(pos_src[1]) - min_y) * scalelat)
+
+                # the x and y of dest node
+                dest_id = int(edge_out)
+                dest = di.get_node(dest_id).get__pos()
+                pos_dest = list(dest.split(","))
+                # x axis value list.
+                x_d.append((float(pos_dest[0]) - min_x) * scalelog)
+                # y axis value list.
+                y_d.append((float(pos_dest[1]) - min_y) * scalelat)
+
+                # add arrow to plot
+                dx = x_d[counter] - x_s[counter]
+                dy = y_d[counter] - y_s[counter]
+                plt.arrow(x_s[counter], y_s[counter], dx, dy, head_width=0.02, width=.004, length_includes_head=True, facecolor='black')
+                counter += 1
 
 
     plt.show()
 
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     draw()
