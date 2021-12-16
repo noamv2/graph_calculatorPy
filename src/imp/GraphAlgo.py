@@ -1,7 +1,7 @@
 import math
 from typing import List
 import heapq as hp
-from DiGraph import DiGraph
+from src.imp.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
 
 
@@ -44,11 +44,11 @@ class GraphAlgo(GraphAlgoInterface):
                 minNei = None
                 minWeight = math.inf
                 dijkstra = {}
-                if ind in dijkstraMap:
-                    dijkstra = dijkstraMap[ind]
+                if src.get__id() in dijkstraMap:
+                    dijkstra = dijkstraMap[src.get__id()]
                 else:
-                    dijkstra = self.dijkstra(ind)
-                    dijkstraMap[ind] = dijkstra
+                    dijkstra = self.dijkstra(src.get__id())
+                    dijkstraMap[src.get__id()] = dijkstra
                 distance = dijkstra[1]
                 path = dijkstra[0]
                 for nodeData in citisMap.values():
@@ -64,8 +64,10 @@ class GraphAlgo(GraphAlgoInterface):
                 size = len(ans) - 1
                 while node != src.get__id():
                     ans.insert(size, self.graph.get_node(int(node)))
-                    del citisMap[int(node)]
-                    node = path[int(node)]
+                    if node in citisMap:
+                        del citisMap[int(node)]
+                    # if node in path:
+                    node = path[node]
                 src = minNei
             if dist < minDist:
                 minAns = ans
@@ -120,6 +122,7 @@ class GraphAlgo(GraphAlgoInterface):
                 prev[k] = None
 
         distances[src] = 0
+        prev[src]=src
 
         while len(que) > 0:
             # pop the smallest vertex
