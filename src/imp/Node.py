@@ -6,6 +6,7 @@ pos : list with 3 parameters that represents a geographic point on the globe
 tag : integer that represents the current state of node (used for algorithms i.e. BFS)
 0 --> white, 1--> gray, 2--> black
 """
+import string
 from typing import List
 
 
