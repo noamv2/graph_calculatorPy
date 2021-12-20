@@ -193,13 +193,15 @@ class GraphAlgo(GraphAlgoInterface):
         # and a queue based on heap
         que = []
         hp.heappush(que, (0, src))
-
+        EdgesLst = {}
         for k, v in nodes.items():
             if k != src:
                 visited[k] = False
                 distances[k] = math.inf
                 prev[k] = None
+                EdgesLst[k] = self.graph.adjList[str(k)].outEdges.items()
 
+        EdgesLst[src] = self.graph.adjList[str(src)].outEdges.items()
         distances[src] = 0
         prev[src] = src
 
@@ -209,8 +211,8 @@ class GraphAlgo(GraphAlgoInterface):
             visited[u] = True  # mark the node as visited
 
             # traverse U's neighbours
-            edges = self.graph.adjList[str(u)].outEdges
-            for ID, w in edges.items():
+            edges = EdgesLst[u]
+            for ID, w in edges:
                 ID = int(ID)
                 if not visited[ID]:
                     altDis = dis + w[1]  # compute the distance to U + dis(u,v)
