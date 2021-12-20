@@ -206,12 +206,13 @@ class GraphAlgo(GraphAlgoInterface):
             edges = self.graph.all_out_edges_of_node(u)
 
             for ID, w in edges.items():
-                if not visited[int(ID)]:
+                ID = int(ID)
+                if not visited[ID]:
                     altDis = dis + w.get_w()  # compute the distance to U + dis(u,v)
-                    if altDis < distances[int(ID)]:
-                        distances[int(ID)] = altDis
-                        prev[int(ID)] = u
-                        hp.heappush(que, (altDis, int(ID)))  # requeue v with the new priority
+                    if altDis < distances[ID]:
+                        distances[ID] = altDis
+                        prev[ID] = u
+                        hp.heappush(que, (altDis, ID))  # requeue v with the new priority
 
         return prev, distances
 
