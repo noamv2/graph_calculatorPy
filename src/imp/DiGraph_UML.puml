@@ -1,0 +1,87 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class DiGraph
+class Edge
+class GraphAlgo
+class Node
+class GUI
+class main
+class container
+
+main <|-- GraphAlgo
+main <|-- "1" DiGraph
+
+Edge *-- "                  2" Node
+DiGraph o-- "0 ... *" Edge
+DiGraph o-- "0 ... *" Node
+DiGraph *-- container
+GUI <-- "1" DiGraph
+
+class Node {
++ _id
++ _pos
++ tag
++ constructor()
++ getters and setters()
++ ToString()
+}
+
+class Edge {
++ src
++ w
++ dest
++ constructor()
++ getters and setters()
++ ToString()
+}
+
+class container{
++ node
++ outEdges
++ inEdges
++ constructor()
+}
+
+class DiGraph {
++ nodes
++ edges
++ constructor using json file()
++ get_node()
++ v_size()
++ e_size()
++ get_all_v()
++ all_in_edges_of_node()
++ all_out_edges_of_node()
++ get_mc()
++ add_edge()
++ add_node()
++ remove_node()
++ remove_edge()
+}
+
+class GraphAlgo {
++ graph
++ init()
++ get_graph()
++ save_to_json()
++ shortest_path()
++ load_from_json()
++ TSP()
++ centerPoint()
++ plot_graph()
++ getPath()
++ dijkstra()
+}
+
+class GUI {
++graph
++draw()
+}
+
+class main {
++ graph
++ check 0...3()
+}
+
+@enduml
