@@ -40,9 +40,8 @@ class DiGraph(GraphInterface, ABC):
                 src = edgeDataD["src"]
                 dest = edgeDataD["dest"]
                 weight = edgeDataD["w"]
-                edge = Edge(src, weight, dest)
-                adjList[str(src)].outEdges[str(dest)] = edge
-                adjList[str(dest)].inEdges[str(src)] = edge
+                adjList[str(src)].outEdges[str(dest)] = (src, weight, dest)
+                adjList[str(dest)].inEdges[str(src)] = (src, weight, dest)
 
         self.adjList = adjList
         self.nodes = nodes
@@ -76,9 +75,8 @@ class DiGraph(GraphInterface, ABC):
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
         if id1 in self.nodes and id2 in self.nodes and str(id2) not in self.adjList[str(id1)].outEdges:
-            edge = Edge(id1, weight, id2)
-            self.adjList[str(id1)].outEdges[str(id2)] = edge
-            self.adjList[str(id2)].inEdges[str(id1)] = edge
+            self.adjList[str(id1)].outEdges[str(id2)] = (id1, weight, id2)
+            self.adjList[str(id2)].inEdges[str(id1)] = (id1, weight, id2)
             self.mc += 1
             return True
 
@@ -89,7 +87,7 @@ class DiGraph(GraphInterface, ABC):
             if pos is None:
                 node = Node(node_id)
             else:
-                node = Node(node_id, pos[0] + "," + pos[1] + ",0.0")
+                node = Node(node_id, str(pos[0]) + "," + str(pos[1]) + ",0.0")
             self.adjList[str(node_id)] = Container(node)
             self.nodes[node_id] = node
             self.mc += 1

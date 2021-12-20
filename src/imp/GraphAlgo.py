@@ -5,6 +5,7 @@ from typing import List
 import heapq as hp
 from src.imp.DiGraph import DiGraph
 from src.GraphAlgoInterface import GraphAlgoInterface
+from src.imp.Edge import Edge
 from src.imp.GUI import draw
 import json
 
@@ -37,6 +38,7 @@ class GraphAlgo(GraphAlgoInterface):
             lstE = []
             for node in self.graph.get_all_v().values():
                 for edge in self.graph.all_out_edges_of_node(node.get__id()).values():
+                    edge = Edge(edge[0], edge[1], edge[2])
                     lstE.append(edge)
 
             edges = json.dumps(lstE, default=lambda o: o.__dict__, sort_keys=True, indent=4)
@@ -63,7 +65,7 @@ class GraphAlgo(GraphAlgoInterface):
         # perform dijkstra on the source node and return the path and distance
         prev, distances = self.dijkstra(id1)
         if distances[id2] == math.inf:
-            return math.inf,[]
+            return math.inf, []
         return distances[id2], self.getPath(prev, id1, id2)
 
     def load_from_json(self, file_name: str) -> bool:
@@ -207,12 +209,11 @@ class GraphAlgo(GraphAlgoInterface):
             visited[u] = True  # mark the node as visited
 
             # traverse U's neighbours
-            edges = self.graph.all_out_edges_of_node(u)
-
+            edges = self.graph.adjList[str(u)].outEdges
             for ID, w in edges.items():
                 ID = int(ID)
                 if not visited[ID]:
-                    altDis = dis + w.get_w()  # compute the distance to U + dis(u,v)
+                    altDis = dis + w[1]  # compute the distance to U + dis(u,v)
                     if altDis < distances[ID]:
                         distances[ID] = altDis
                         prev[ID] = u

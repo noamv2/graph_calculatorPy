@@ -90,7 +90,7 @@ def draw(di: DiGraph):
     # plot line between points
     for node in nodes.values():
         outE = di.all_out_edges_of_node(node.get__id())  # the edges that goes out of this node
-        for edge_out in outE:
+        for edge_out in outE.values():
             # the x and y of src node
             src = node.get__pos()
             pos_src = list(src.split(","))
@@ -106,8 +106,8 @@ def draw(di: DiGraph):
                 y_s.append((float(pos_src[1]) - min_y) * scalelat)
 
             # the x and y of dest node
-            dest_id = int(edge_out)
-            destN=di.get_node(dest_id)
+            dest_id = edge_out[2]
+            destN = di.get_node(dest_id)
             dest = di.get_node(dest_id).get__pos()
             pos_dest = list(dest.split(","))
             # x axis value list.

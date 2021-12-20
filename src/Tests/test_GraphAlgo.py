@@ -53,7 +53,6 @@ class TestGraphAlgo(TestCase):
         self.algo.save_to_json("testG.json")
         self.algo.load_from_json("testG.json")
 
-
     def test_shortest_path(self):
         self.assertEqual(self.algo.shortest_path(1, 2)[0], 45)
         self.assertEqual(self.algo.shortest_path(1, 3)[0], 45)
@@ -66,8 +65,7 @@ class TestGraphAlgo(TestCase):
         # self.assertEqual(self.algo10000.shortest_path(14, 2345)[0], 830.6354147999858)
         self.algo1.graph.remove_node(1)
         self.algo1.graph.remove_node(15)
-        self.assertEqual(self.algo1.shortest_path(14,16),math.inf)
-
+        self.assertEqual(self.algo1.shortest_path(14, 16), (math.inf,[]))
 
     def test_center(self):
         # self.assertEqual(self.algo.centerPoint()[0], 4)
@@ -102,8 +100,8 @@ class TestGraphAlgo(TestCase):
 
         print(self.algo1000.TSP(lst))
 
-    def test_plot_graph(self):
-        self.algo1.plot_graph()
+    # def test_plot_graph(self):
+        # self.algo1.plot_graph()
 
     @staticmethod
     def calculator(algo: GraphAlgo, ans: list, citis: list):
