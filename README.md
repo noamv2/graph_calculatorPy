@@ -15,4 +15,11 @@ The manipulated graph can be saved to json file.
   <li> <strong> Center: </strong>The implementation is rather simple, we first compute the eccentricity of each node <a href="https://en.wikipedia.org/wiki/Distance_(graph_theory)">(eccentricity:wikipedia) </a> using Dijkstra's algorithm on each vertex and taking the max distance. then, we  pick the vertex with the smallest eccentricy as the center</li>
   
   <li> <strong> Tsp-Traveling salesmen problem: </strong> We start from some random node from the list, perform the Dijkstra algorithm, and travel to the closest Unvisited node from the list, we keep doing that until we reached all the nodes from the list. following this method will yield us a valid path, albeit not necessarily the shortest. we repeat this process for each node in the list, each time picking another vertex as a starting point. in the end we return the shortest path we've found</li>  
-</ul>
+
+
+
+ <h2> UML diagram </h2>
+ 
+ <p align = "center"><img src = "https://user-images.githubusercontent.com/74304423/146753790-d87e99b6-1ebc-4b13-848d-61780a15cbf5.jpg">  </p>
+ 
+ <h2> How to run the project </h2>
