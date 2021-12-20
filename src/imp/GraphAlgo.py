@@ -1,3 +1,4 @@
+import cProfile
 import logging
 import math
 from typing import List
@@ -10,8 +11,11 @@ import json
 
 class GraphAlgo(GraphAlgoInterface):
 
-    def __init__(self, g: DiGraph):
-        self.graph = g
+    def __init__(self, g: DiGraph = None):
+        if g is None:
+            self.graph = DiGraph()
+        else:
+            self.graph = g
 
     def get_graph(self):
         """  :return: the directed graph on which the algorithm works on."""
@@ -59,7 +63,7 @@ class GraphAlgo(GraphAlgoInterface):
         # perform dijkstra on the source node and return the path and distance
         prev, distances = self.dijkstra(id1)
         if distances[id2] == math.inf:
-            return math.inf
+            return math.inf,[]
         return distances[id2], self.getPath(prev, id1, id2)
 
     def load_from_json(self, file_name: str) -> bool:
@@ -216,8 +220,8 @@ class GraphAlgo(GraphAlgoInterface):
 
         return prev, distances
 
-# if __name__ == '__main__':
-#     g = DiGraph("../../data/1000Nodes.json")
-#     alg = GraphAlgo(g)
-#     alg.TSP()
-#     cProfile.run('alg.')
+
+if __name__ == '__main__':
+    g = DiGraph("../../data/1000Nodes.json")
+    alg = GraphAlgo(g)
+    cProfile.run('alg.centerPoint()', sort=1)

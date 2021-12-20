@@ -12,7 +12,7 @@ from typing import List
 
 class Node(object):
     # constructor
-    def __init__(self, _id: int, _pos: List[float]):
+    def __init__(self, _id: int, _pos: str = "-1,-1,0.0"):
         self.id = _id
         self.pos = _pos
         self.tag = 0

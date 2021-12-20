@@ -1,10 +1,13 @@
 import math
+import random
+
 import matplotlib.pyplot as plt
-from DiGraph import DiGraph
+from src.imp.DiGraph import DiGraph
 
 """
 in this class we draw the graph we receive from a Json file using matplotlib
 """
+
 
 # Function draw receives a graph a draw it
 
@@ -12,7 +15,8 @@ in this class we draw the graph we receive from a Json file using matplotlib
 def draw(di: DiGraph):
     nodes = di.get_all_v()  # all the nodes in the graph
     id_nums = []
-
+    randPosX = {}
+    randPosY = {}
     # id_nums holds all the id numbers of the nodes in the graph
     # used to draw the numbers of each node
     for _id in nodes:
@@ -43,7 +47,12 @@ def draw(di: DiGraph):
             min_x = posX
         if min_y > posY:
             min_y = posY
-
+    if max_x == min_x:
+        max_x = 1
+        min_x = 0
+    if max_y == min_y:
+        max_y = 1
+        min_y = 0
     scalelog = 1 / (max_x - min_x)  # scaling the x
     scalelat = 1 / (max_y - min_y)  # scaling the y
 
@@ -51,9 +60,19 @@ def draw(di: DiGraph):
         positions = j.get__pos()
         list_pos = list(positions.split(","))
         # x axis value list.
-        x.append((float(list_pos[0])-min_x)*scalelog)
+        if float(list_pos[0]) == -1:
+            randX = random.uniform(min_x, max_x)
+            randPosX[j.get__id()] = randX
+            x.append(randX)
+        else:
+            x.append((float(list_pos[0]) - min_x) * scalelog)
         # y axis value list.
-        y.append((float(list_pos[1])-min_y)*scalelat)
+        if float(list_pos[1]) == -1:
+            randY = random.uniform(min_y, max_y)
+            randPosY[j.get__id()] = randY
+            y.append(randY)
+        else:
+            y.append((float(list_pos[1]) - min_y) * scalelat)
 
         # Draw points based on above x, y axis values.
         dots = plt.scatter(x, y, c='red', marker='o', s=10, zorder=3)
@@ -62,42 +81,51 @@ def draw(di: DiGraph):
         for i in range(len(x)):
             plt.annotate(id_nums[i], (x[i], y[i] + 0.02))
 
-        counter = 0
-        x_s = []  # x values of source node
-        y_s = []  # y values of source node
-        x_d = []  # x values of dest node
-        y_d = []  # y values of dest node
+    counter = 0
+    x_s = []  # x values of source node
+    y_s = []  # y values of source node
+    x_d = []  # x values of dest node
+    y_d = []  # y values of dest node
 
-        # plot line between points
-        for node in nodes.values():
-            outE = di.all_out_edges_of_node(node.get__id())  # the edges that goes out of this node
-            for edge_out in outE:
-
-                # the x and y of src node
-                src = node.get__pos()
-                pos_src = list(src.split(","))
-                # x axis value list.
+    # plot line between points
+    for node in nodes.values():
+        outE = di.all_out_edges_of_node(node.get__id())  # the edges that goes out of this node
+        for edge_out in outE:
+            # the x and y of src node
+            src = node.get__pos()
+            pos_src = list(src.split(","))
+            # x axis value list.
+            if float(pos_src[0]) == -1:
+                x_s.append(randPosX[node.get__id()])
+            else:
                 x_s.append((float(pos_src[0]) - min_x) * scalelog)
-                # y axis value list.
+            # y axis value list.
+            if float(pos_src[1]) == -1:
+                y_s.append(randPosY[node.get__id()])
+            else:
                 y_s.append((float(pos_src[1]) - min_y) * scalelat)
 
-                # the x and y of dest node
-                dest_id = int(edge_out)
-                dest = di.get_node(dest_id).get__pos()
-                pos_dest = list(dest.split(","))
-                # x axis value list.
+            # the x and y of dest node
+            dest_id = int(edge_out)
+            destN=di.get_node(dest_id)
+            dest = di.get_node(dest_id).get__pos()
+            pos_dest = list(dest.split(","))
+            # x axis value list.
+            if float(pos_dest[0]) == -1:
+                x_d.append(randPosX[destN.get__id()])
+            else:
                 x_d.append((float(pos_dest[0]) - min_x) * scalelog)
-                # y axis value list.
+            # y axis value list.
+            if float(pos_dest[1]) == -1:
+                y_d.append(randPosY[destN.get__id()])
+            else:
                 y_d.append((float(pos_dest[1]) - min_y) * scalelat)
 
-                # add arrow to plot
-                dx = x_d[counter] - x_s[counter]  # distance between x values of dest node and src node
-                dy = y_d[counter] - y_s[counter]  # distance between y values of dest node and src node
-                plt.arrow(x_s[counter], y_s[counter], dx, dy, head_width=0.02, width=.004, length_includes_head=True, facecolor='black')
-                counter += 1
+            # add arrow to plot
+            dx = x_d[counter] - x_s[counter]  # distance between x values of dest node and src node
+            dy = y_d[counter] - y_s[counter]  # distance between y values of dest node and src node
+            plt.arrow(x_s[counter], y_s[counter], dx, dy, head_width=0.02, width=.004, length_includes_head=True,
+                      facecolor='black')
+            counter += 1
 
     plt.show()
-
-
-if __name__ == '__main__':
-    draw()

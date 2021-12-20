@@ -15,7 +15,7 @@ class Container:
 
 class DiGraph(GraphInterface, ABC):
 
-    def __init__(self, file_name):
+    def __init__(self, file_name=""):
         self.mc = 0
         adjList = {}
         nodes = {}
@@ -28,8 +28,10 @@ class DiGraph(GraphInterface, ABC):
             for nodeData in nodesL:
                 nodeDataD = dict(nodeData)
                 n_id = nodeDataD["id"]
-                n_pos = nodeDataD["pos"]
-                node = Node(n_id, n_pos)
+                if "pos" in nodeDataD:
+                    node = Node(n_id, nodeDataD["pos"])
+                else:
+                    node = Node(n_id)
                 adjList[str(n_id)] = Container(node)
                 nodes[n_id] = node
 
@@ -84,7 +86,10 @@ class DiGraph(GraphInterface, ABC):
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if node_id not in self.nodes:
-            node = Node(node_id, [pos[0], pos[1], 0.0])
+            if pos is None:
+                node = Node(node_id)
+            else:
+                node = Node(node_id, pos[0] + "," + pos[1] + ",0.0")
             self.adjList[str(node_id)] = Container(node)
             self.nodes[node_id] = node
             self.mc += 1
