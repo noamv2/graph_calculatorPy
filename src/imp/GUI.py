@@ -33,8 +33,7 @@ def draw(di: DiGraph):
 
     # going through all the nodes id values in the graph
     for node in nodes.values():
-        positions = node.get__pos()  # this node's position (in string format)
-        list_pos = list(positions.split(","))  # converting position into a list
+        list_pos=node.get__pos() # this node's position (in tuple format)
         posX = float(list_pos[0])  # the value at place 0 is x
         posY = float(list_pos[1])  # the value at place 1 is y
 
@@ -57,8 +56,8 @@ def draw(di: DiGraph):
     scalelat = 1 / (max_y - min_y)  # scaling the y
 
     for j in nodes.values():
-        positions = j.get__pos()
-        list_pos = list(positions.split(","))
+
+        list_pos=j.get__pos()
         # x axis value list.
         if float(list_pos[0]) == -1:
             randX = random.uniform(min_x, max_x)
@@ -75,7 +74,7 @@ def draw(di: DiGraph):
             y.append((float(list_pos[1]) - min_y) * scalelat)
 
         # Draw points based on above x, y axis values.
-        dots = plt.scatter(x, y, c='red', marker='o', s=10, zorder=3)
+        plt.scatter(x, y, c='red', marker='o', s=10, zorder=3)
 
         # Loop for annotation of all points
         for i in range(len(x)):
@@ -90,10 +89,9 @@ def draw(di: DiGraph):
     # plot line between points
     for node in nodes.values():
         outE = di.all_out_edges_of_node(node.get__id())  # the edges that goes out of this node
-        for edge_out in outE.values():
+        for dest_id in outE.keys():
             # the x and y of src node
-            src = node.get__pos()
-            pos_src = list(src.split(","))
+            pos_src =node.get__pos()
             # x axis value list.
             if float(pos_src[0]) == -1:
                 x_s.append(randPosX[node.get__id()])
@@ -106,10 +104,8 @@ def draw(di: DiGraph):
                 y_s.append((float(pos_src[1]) - min_y) * scalelat)
 
             # the x and y of dest node
-            dest_id = edge_out[2]
             destN = di.get_node(dest_id)
-            dest = di.get_node(dest_id).get__pos()
-            pos_dest = list(dest.split(","))
+            pos_dest =di.get_node(dest_id).get__pos()
             # x axis value list.
             if float(pos_dest[0]) == -1:
                 x_d.append(randPosX[destN.get__id()])

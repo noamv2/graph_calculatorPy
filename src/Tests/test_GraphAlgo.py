@@ -52,6 +52,7 @@ class TestGraphAlgo(TestCase):
     def test_save_to_json(self):
         self.algo.save_to_json("testG.json")
         self.algo.load_from_json("testG.json")
+        print(self.algo.graph.nodes)
 
     def test_shortest_path(self):
         self.assertEqual(self.algo.shortest_path(1, 2)[0], 45)

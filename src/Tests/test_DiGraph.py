@@ -21,7 +21,6 @@ class TestDiGraph(TestCase):
         self.assertTrue(d.v_size() == 11)
 
     def test_e_size(self):
-        # d = DiGraph("../../data/A0.json")
         self.assertTrue(d.e_size() == 22)
         d.add_edge(1, 3, 10)
         self.assertTrue(d.e_size() == 23)
@@ -36,44 +35,66 @@ class TestDiGraph(TestCase):
         self.assertTrue(d.get_all_v().keys().__str__() == "dict_keys([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])")
 
     def test_all_in_edges_of_node(self):
-        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4'])")
+
+        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys([2, 4])")
         d.add_edge(1, 3, 10)
-        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4', '1'])")
+        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys([2, 4, 1])")
         d.remove_edge(1, 3)
-        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4'])")
+        self.assertTrue(d.all_in_edges_of_node(3).keys().__str__() == "dict_keys([2, 4])")
 
     def test_all_out_edges_of_node(self):
-        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4'])")
+        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys([2, 4])")
         d.add_edge(3, 1, 10)
-        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4', '1'])")
+        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys([2, 4, 1])")
         d.remove_edge(3, 1)
-        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys(['2', '4'])")
+        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys([2, 4])")
 
     def test_get_mc(self):
-        self.assertTrue(d.mc == 0)
+        c = d.mc
+        self.assertTrue(d.mc == c)
         d.add_edge(3, 1, 10)
-        self.assertTrue(d.mc == 1)
+        self.assertTrue(d.mc == c + 1)
         d.remove_edge(3, 1)
-        self.assertTrue(d.mc == 2)
+        self.assertTrue(d.mc == c + 2)
         d.add_node(15, (32, 35))
-        self.assertTrue(d.mc == 3)
+        self.assertTrue(d.mc == c + 3)
         d.remove_node(15)
-        self.assertTrue(d.mc == 4)
+        self.assertTrue(d.mc == c + 4)
 
     def test_add_edge(self):
-        self.assertTrue(d.add_edge(3, 1, 10))
-        self.assertFalse(d.add_edge(3, 1, 15))
+        # self.assertTrue(d.add_edge(3, 1, 10))
+        # self.assertFalse(d.add_edge(3, 1, 15))
+        d.add_edge(3, 1, 10)
+        self.assertTrue(d.all_out_edges_of_node(3).keys().__str__() == "dict_keys([2, 4, 1])")
+        self.assertTrue(d.all_in_edges_of_node(1).keys().__str__() == "dict_keys([0, 2, 3])")
+        self.assertTrue(d.e_size() == 23)
+        d.remove_edge(3, 1)
 
     def test_add_node(self):
-        self.assertTrue(d.add_node(15, (32, 35)))
-        self.assertFalse(d.add_node(15, (32, 35)))
+        # self.assertTrue(d.add_node(15, (32, 35)))
+        # self.assertFalse(d.add_node(15, (32, 35)))
+
+        d.add_node(15, (32, 35))
+        self.assertTrue(d.v_size() == 12)
+        self.assertTrue(d.get_all_v().keys().__str__() == "dict_keys([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15])")
+        d.remove_node(15)
 
     def test_remove_node(self):
+        # self.assertFalse(d.remove_node(15))
+        # d.add_node(15, (32, 35))
+        # self.assertTrue(d.remove_node(15))
         self.assertFalse(d.remove_node(15))
         d.add_node(15, (32, 35))
-        self.assertTrue(d.remove_node(15))
+        self.assertTrue(d.v_size() == 12)
+        d.remove_node(15)
+        self.assertTrue(d.v_size() == 11)
 
     def test_remove_edge(self):
+        # self.assertFalse(d.remove_edge(3, 1))
+        # d.add_edge(3, 1, 10)
+        # self.assertTrue(d.remove_edge(3, 1))
         self.assertFalse(d.remove_edge(3, 1))
         d.add_edge(3, 1, 10)
-        self.assertTrue(d.remove_edge(3, 1))
+        self.assertTrue(d.e_size() == 23)
+        d.remove_edge(3, 1)
+        self.assertTrue(d.e_size() == 22)

@@ -6,24 +6,23 @@ pos : list with 3 parameters that represents a geographic point on the globe
 tag : integer that represents the current state of node (used for algorithms i.e. BFS)
 0 --> white, 1--> gray, 2--> black
 """
-import string
-from typing import List
+
 
 
 class Node(object):
     # constructor
-    def __init__(self, _id: int, _pos: str = "-1,-1,0.0"):
+    def __init__(self, _id: int, _pos: tuple = (-1, -1, 0.0)):
         self.id = _id
-        self.pos = _pos
+        self.pos = (float(_pos[0]), float(_pos[1]), float(_pos[2]))
         self.tag = 0
 
     # string of information
     def __str__(self):
-        return f'Node({self.id},{self.pos},{self.tag})'
+        return f'Node({self.id})'
 
     # string for inside the list information
     def __repr__(self):
-        return str(self)
+        return f'Node({self.id})'
 
     # getter method for id
     def get__id(self):

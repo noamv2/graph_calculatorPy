@@ -33,12 +33,13 @@ class GraphAlgo(GraphAlgoInterface):
                                indent=4)
             lstN = json.loads(nodes)
             for d in lstN:
+                d["pos"] = str(d["pos"][0]) + "," + str(d["pos"][1]) + "," + str(d["pos"][2])
                 del d["tag"]
 
             lstE = []
             for node in self.graph.get_all_v().values():
-                for edge in self.graph.all_out_edges_of_node(node.get__id()).values():
-                    edge = Edge(edge[0], edge[1], edge[2])
+                for dest, edge in self.graph.all_out_edges_of_node(node.get__id()).items():
+                    edge = Edge(node.get__id(), edge, dest)
                     lstE.append(edge)
 
             edges = json.dumps(lstE, default=lambda o: o.__dict__, sort_keys=True, indent=4)
@@ -121,7 +122,8 @@ class GraphAlgo(GraphAlgoInterface):
                         minNei = nodeData
                         minWeight = distance[nodeData.get__id()]
                 if minNei is None:
-                    return None
+                    dist = math.inf
+                    break
                 # add the distance of the path between the nodes and create a path
                 dist += distance[minNei.get__id()]
                 ans.append(self.graph.get_node(minNei.get__id()))
@@ -139,14 +141,17 @@ class GraphAlgo(GraphAlgoInterface):
                 minAns = ans
                 minDist = dist
         # return the minimum path
-        return minAns
+        if minDist == math.inf:
+            return None
+
+        ans = [x.id for x in minAns]
+        return ans, minDist
 
     def centerPoint(self) -> (int, float):
         """
         Finds the node that has the shortest distance to it's farthest node.
         :return: The nodes id, min-maximum distance
         """
-
         # calculate the eccentricity of each node
         eccentricity = {}  # saving the eccentricity of each node
         for node in self.graph.get_all_v().values():
@@ -156,6 +161,11 @@ class GraphAlgo(GraphAlgoInterface):
         # take the min value of all the eccentricity
         min_value = min(eccentricity.values())
         ind = list(eccentricity.keys())[list(eccentricity.values()).index(min_value)]
+
+        Max = max(eccentricity.values())
+        if Max == math.inf:  # one node is not reachable, there fore the graph is not connected
+            ind = -1
+            min_value = math.inf
         # return the min eccentricity and the node index
         return ind, min_value
 
@@ -199,9 +209,9 @@ class GraphAlgo(GraphAlgoInterface):
                 visited[k] = False
                 distances[k] = math.inf
                 prev[k] = None
-                EdgesLst[k] = self.graph.adjList[str(k)].outEdges.items()
+                EdgesLst[k] = self.graph.adjList[k].outEdges.items()
 
-        EdgesLst[src] = self.graph.adjList[str(src)].outEdges.items()
+        EdgesLst[src] = self.graph.adjList[src].outEdges.items()
         distances[src] = 0
         prev[src] = src
 
@@ -215,16 +225,10 @@ class GraphAlgo(GraphAlgoInterface):
             for ID, w in edges:
                 ID = int(ID)
                 if not visited[ID]:
-                    altDis = dis + w[1]  # compute the distance to U + dis(u,v)
+                    altDis = dis + w  # compute the distance to U + dis(u,v)
                     if altDis < distances[ID]:
                         distances[ID] = altDis
                         prev[ID] = u
                         hp.heappush(que, (altDis, ID))  # requeue v with the new priority
 
         return prev, distances
-
-
-if __name__ == '__main__':
-    g = DiGraph("../../data/1000Nodes.json")
-    alg = GraphAlgo(g)
-    cProfile.run('alg.centerPoint()', sort=1)
