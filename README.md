@@ -27,6 +27,10 @@ Using the new implementation and after little bit of profiling, we managed to  g
  <br>
  <p align = "center"><img src = "https://user-images.githubusercontent.com/74304423/146753790-d87e99b6-1ebc-4b13-848d-61780a15cbf5.jpg">  </p>
  
+ <h2>Running time comparing -Java vs Python</h2>
+ 
  <h2> How to run the project </h2>
+ 
+ <p> To run the project, you will have to download/clone the project </p>
  
  <h2> Visual representation </h2>
