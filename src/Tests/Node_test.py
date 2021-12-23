@@ -53,7 +53,7 @@ class NodeTest(unittest.TestCase):
         self.assertEqual(n.get__pos(), (12.0, 5, 0))
 
     def test_str(self):
-        n = Node(0, (30.9, 31.8,0 ))
+        n = Node(0, (30.9, 31.8, 0))
         self.assertEqual(n.__str__(), "Node(0)")
 
     def test_repr(self):

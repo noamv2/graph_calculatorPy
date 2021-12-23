@@ -42,6 +42,8 @@ class DiGraph(GraphInterface, ABC):
                 weight = edgeDataD["w"]
                 adjList[src].outEdges[dest] = weight
                 adjList[dest].inEdges[src] = weight
+                nodes[src].outEdge += 1
+                nodes[dest].inEdge += 1
 
         self.adjList = adjList
         self.nodes = nodes
@@ -81,6 +83,8 @@ class DiGraph(GraphInterface, ABC):
             self.adjList[id1].outEdges[id2] = weight
             self.adjList[id2].inEdges[id1] = weight
             self.mc += 1
+            self.nodes[id1].outEdge += 1
+            self.nodes[id2].inEdge += 1
             return True
 
         return False
@@ -121,5 +125,7 @@ class DiGraph(GraphInterface, ABC):
             del self.adjList[node_id1].outEdges[node_id2]
             del self.adjList[node_id2].inEdges[node_id1]
             self.mc += 1
+            self.nodes[node_id1].outEdge -= 1
+            self.nodes[node_id2].inEdge -= 1
             return True
         return False

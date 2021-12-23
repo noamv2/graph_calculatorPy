@@ -33,7 +33,7 @@ def draw(di: DiGraph):
 
     # going through all the nodes id values in the graph
     for node in nodes.values():
-        list_pos=node.get__pos() # this node's position (in tuple format)
+        list_pos = node.get__pos()  # this node's position (in tuple format)
         posX = float(list_pos[0])  # the value at place 0 is x
         posY = float(list_pos[1])  # the value at place 1 is y
 
@@ -57,7 +57,7 @@ def draw(di: DiGraph):
 
     for j in nodes.values():
 
-        list_pos=j.get__pos()
+        list_pos = j.get__pos()
         # x axis value list.
         if float(list_pos[0]) == -1:
             randX = random.uniform(min_x, max_x)
@@ -91,7 +91,7 @@ def draw(di: DiGraph):
         outE = di.all_out_edges_of_node(node.get__id())  # the edges that goes out of this node
         for dest_id in outE.keys():
             # the x and y of src node
-            pos_src =node.get__pos()
+            pos_src = node.get__pos()
             # x axis value list.
             if float(pos_src[0]) == -1:
                 x_s.append(randPosX[node.get__id()])
@@ -105,7 +105,7 @@ def draw(di: DiGraph):
 
             # the x and y of dest node
             destN = di.get_node(dest_id)
-            pos_dest =di.get_node(dest_id).get__pos()
+            pos_dest = di.get_node(dest_id).get__pos()
             # x axis value list.
             if float(pos_dest[0]) == -1:
                 x_d.append(randPosX[destN.get__id()])

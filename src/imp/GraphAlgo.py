@@ -35,6 +35,8 @@ class GraphAlgo(GraphAlgoInterface):
             for d in lstN:
                 d["pos"] = str(d["pos"][0]) + "," + str(d["pos"][1]) + "," + str(d["pos"][2])
                 del d["tag"]
+                del d["inEdge"]
+                del d["outEdge"]
 
             lstE = []
             for node in self.graph.get_all_v().values():
@@ -90,7 +92,7 @@ class GraphAlgo(GraphAlgoInterface):
         :param node_lst: A list of nodes id's
         :return: A list of the nodes id's in the path, and the overall distance
         """
-        minDist = dist = math.inf
+        minDist = math.inf
         minAns = []
         citisMap = {}
         dijkstraMap = {}
@@ -107,7 +109,6 @@ class GraphAlgo(GraphAlgoInterface):
             while len(citisMap) > 0:
                 minNei = None
                 minWeight = math.inf
-                dijkstra = {}
                 # if we already performed dijkstra on the source then whe take the results
                 if src.get__id() in dijkstraMap:
                     dijkstra = dijkstraMap[src.get__id()]
@@ -192,7 +193,6 @@ class GraphAlgo(GraphAlgoInterface):
 
     def dijkstra(self, src: int) -> (dict, dict):
         # get the number of nodes from the graph
-        size = self.graph.v_size()
         nodes = self.graph.get_all_v()
         # create and initialize distance and prev dicts, we return these as the result
         distances = {}

@@ -1,10 +1,7 @@
 import math
 from unittest import TestCase
 from src.imp.DiGraph import DiGraph
-from src.imp.Dijkstra import Dijkstra
-from src.imp.Edge import Edge
 from src.imp.GraphAlgo import GraphAlgo
-from src.imp.Node import Node
 
 
 class TestGraphAlgo(TestCase):
@@ -66,7 +63,7 @@ class TestGraphAlgo(TestCase):
         # self.assertEqual(self.algo10000.shortest_path(14, 2345)[0], 830.6354147999858)
         self.algo1.graph.remove_node(1)
         self.algo1.graph.remove_node(15)
-        self.assertEqual(self.algo1.shortest_path(14, 16), (math.inf,[]))
+        self.assertEqual(self.algo1.shortest_path(14, 16), (math.inf, []))
 
     def test_center(self):
         # self.assertEqual(self.algo.centerPoint()[0], 4)
@@ -102,7 +99,7 @@ class TestGraphAlgo(TestCase):
         print(self.algo1000.TSP(lst))
 
     # def test_plot_graph(self):
-        # self.algo1.plot_graph()
+    # self.algo1.plot_graph()
 
     @staticmethod
     def calculator(algo: GraphAlgo, ans: list, citis: list):
