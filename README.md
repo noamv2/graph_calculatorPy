@@ -27,7 +27,6 @@ Using the new implementation and after little bit of profiling, we managed to  g
  <br>
  <p align = "center"><img src = "https://user-images.githubusercontent.com/74304423/146753790-d87e99b6-1ebc-4b13-848d-61780a15cbf5.jpg">  </p>
  
- <h2>Running time comparing -Java vs Python</h2>
  
  <h2> How to run the project </h2>
  
@@ -43,23 +42,31 @@ Afterwards do the following:
 
   - To upload a graph from a Json file do the following: 
     - Init an empty graph - for the GraphAlgo:
- ![Screenshot 2021-12-27 175807](https://user-images.githubusercontent.com/93203695/147488000-0f1f1c60-4e54-4729-9d4b-2e632224e317.png)
+ 
+ <p align = "center"><img src = "https://user-images.githubusercontent.com/93203695/147488000-0f1f1c60-4e54-4729-9d4b-2e632224e317.png"> </p>
+ 
     - Write the path to where the file is at:
- ![Screenshot 2021-12-27 175934](https://user-images.githubusercontent.com/93203695/147488127-85596b74-875a-4a0d-a998-ee172b1ec78d.png)
+ 
+ <p align = "center"><img src = "https://user-images.githubusercontent.com/93203695/147488127-85596b74-875a-4a0d-a998-ee172b1ec78d.png">  </p>
+ 
     - Init a GraphAlgo from a json file: 
- ![Screenshot 2021-12-27 180222](https://user-images.githubusercontent.com/93203695/147488308-032f2c37-c6f0-4dd3-9497-221dcb3473ec.png)
+ 
+ <p align = "center"><img src = "https://user-images.githubusercontent.com/93203695/147488308-032f2c37-c6f0-4dd3-9497-221dcb3473ec.png">  </p>
 
   - To create a graph (not via upload), do the following:
     - Create an empty directed graph:
- ![2](https://user-images.githubusercontent.com/93203695/147488448-1e232ce8-eaad-4a9f-86f7-9ed2400a6231.png)
+ 
+ <p align = "center"><img src = "https://user-images.githubusercontent.com/93203695/147488448-1e232ce8-eaad-4a9f-86f7-9ed2400a6231.png">  </p>
     - Insert the nodes and edges you desire, as in the example:
  
- ![3](https://user-images.githubusercontent.com/93203695/147488627-1d32d42d-16f6-4a77-92b6-2089841a0dd4.png)
+ <p align = "center"><img src = "https://user-images.githubusercontent.com/93203695/147488627-1d32d42d-16f6-4a77-92b6-2089841a0dd4.png">  </p>
 
  To run the algorithms, just call the algorithm function that you would like to activate,
  inside a print call, so you will get the answer of the algorithm.
  - Example: Here we call the algorithm "shortest path"
  
+ <p align = "center"><img src = "https://user-images.githubusercontent.com/93203695/147490162-c4273dd2-c38c-4757-b678-0e48b137a95e.png">  </p>
+
  To run changes on the graph, call the function that you would like to,
  and don't forget to call right afterwards to the function plot_graph() in order to see the changes.
  - Example: first picture shows the graph before the changes, the second shows the graph after we called the function "remove edge":
