@@ -73,12 +73,13 @@ def draw(di: DiGraph):
         else:
             y.append((float(list_pos[1]) - min_y) * scalelat)
 
-        # Draw points based on above x, y axis values.
-        plt.scatter(x, y, c='red', marker='o', s=10, zorder=3)
+    # Draw points based on above x, y axis values.
+    plt.scatter([0, 1], [0, 1], c='white', marker='o', s=10, zorder=3)
+    plt.scatter(x, y, c='red', marker='o', s=10, zorder=3)
 
-        # Loop for annotation of all points
-        for i in range(len(x)):
-            plt.annotate(id_nums[i], (x[i], y[i] + 0.02))
+    # Loop for annotation of all points
+    for i in range(len(x)):
+        plt.annotate(id_nums[i], (x[i], y[i] + 0.02))
 
     counter = 0
     x_s = []  # x values of source node

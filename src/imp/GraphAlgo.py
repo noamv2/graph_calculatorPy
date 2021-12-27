@@ -143,7 +143,7 @@ class GraphAlgo(GraphAlgoInterface):
                 minDist = dist
         # return the minimum path
         if minDist == math.inf:
-            return None
+            return None,math.inf
 
         ans = [x.id for x in minAns]
         return ans, minDist
@@ -165,8 +165,8 @@ class GraphAlgo(GraphAlgoInterface):
 
         Max = max(eccentricity.values())
         if Max == math.inf:  # one node is not reachable, there fore the graph is not connected
-            ind = -1
-            min_value = math.inf
+            ind=None
+            min_value=math.inf
         # return the min eccentricity and the node index
         return ind, min_value
 
