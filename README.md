@@ -36,18 +36,27 @@ Using the new implementation and after little bit of profiling, we managed to  g
  <h2> Visual representation </h2>
 Some examples of graphs visualizations:
 <h3> Graph A0: </h3>
-
+ 
+![Figure_1](https://user-images.githubusercontent.com/93203695/147485865-6c30dac7-429d-43d5-ae08-988effedcd5c.png)
 
 <h3> Graph A1: </h3>
 
+ ![Figure_2](https://user-images.githubusercontent.com/93203695/147485958-7eecd26d-c41a-4be9-82be-b8d03885c1db.png)
+
 
 <h3> Graph A2: </h3>
-
+ 
+![Figure_3](https://user-images.githubusercontent.com/93203695/147486007-f1c425e3-a57d-4023-a8ba-812efc47fb91.png)
 
 <h3> Graph A3: </h3>
 
+ ![Figure_4](https://user-images.githubusercontent.com/93203695/147486071-7f97bfbb-b8c3-4147-aaad-fc98f3412913.png)
+
 
 <h3> Graph A4: </h3>
-
+ 
+![Figure_5](https://user-images.githubusercontent.com/93203695/147486130-4d551dd5-0c4c-46e3-8e71-e4e8ad83cb11.png)
 
 <h3> Graph A5: </h3>
+ 
+ ![Figure_6](https://user-images.githubusercontent.com/93203695/147486227-370eaf71-3b21-475a-b074-08c6f0a64708.png)
