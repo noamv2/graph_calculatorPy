@@ -31,14 +31,48 @@ Using the new implementation and after little bit of profiling, we managed to  g
  
  <h2> How to run the project </h2>
  
- First, download/clone the project from git.
+ First, download/clone the project from git. 
 Afterwards do the following:
-- Extract the downloaded zip file, and open the project in Python environment workspace.
+- Extract the downloaded zip file, and open the project in Python environment workspace (VERY IMPORTANT TO DOWNLOAD THE LIBRARY "MATPLOTLIB").
 - In class "main" you run the project itself as described:
   - There are 4 check functions that are already in the project. you can change each one of them as you desire, 
   or to create a new check function.
+  - example of a check function:
+ 
+ ![1](https://user-images.githubusercontent.com/93203695/147487620-605869a2-5c94-4f9b-a703-b530457ba76c.png)
+
   - To upload a graph from a Json file do the following: 
+    - Init an empty graph - for the GraphAlgo:
+ ![Screenshot 2021-12-27 175807](https://user-images.githubusercontent.com/93203695/147488000-0f1f1c60-4e54-4729-9d4b-2e632224e317.png)
+    - Write the path to where the file is at:
+ ![Screenshot 2021-12-27 175934](https://user-images.githubusercontent.com/93203695/147488127-85596b74-875a-4a0d-a998-ee172b1ec78d.png)
+    - Init a GraphAlgo from a json file: 
+ ![Screenshot 2021-12-27 180222](https://user-images.githubusercontent.com/93203695/147488308-032f2c37-c6f0-4dd3-9497-221dcb3473ec.png)
+
   - To create a graph (not via upload), do the following:
+    - Create an empty directed graph:
+ ![2](https://user-images.githubusercontent.com/93203695/147488448-1e232ce8-eaad-4a9f-86f7-9ed2400a6231.png)
+    - Insert the nodes and edges you desire, as in the example:
+ 
+ ![3](https://user-images.githubusercontent.com/93203695/147488627-1d32d42d-16f6-4a77-92b6-2089841a0dd4.png)
+
+ To run the algorithms, just call the algorithm function that you would like to activate,
+ inside a print call, so you will get the answer of the algorithm.
+ - Example: Here we call the algorithm "shortest path"
+ 
+ To run changes on the graph, call the function that you would like to,
+ and don't forget to call right afterwards to the function plot_graph() in order to see the changes.
+ - Example: first picture shows the graph before the changes, the second shows the graph after we called the function "remove edge":
+ 
+ ![before](https://user-images.githubusercontent.com/93203695/147489593-26cea9b3-67db-4f0a-92ce-b90aefd78a96.png)
+
+ ![after](https://user-images.githubusercontent.com/93203695/147489602-17563019-04e7-4837-b414-d72ffe73c451.png)
+
+ Example of how to write the changes and plotting the graph:
+ 
+ ![changes](https://user-images.githubusercontent.com/93203695/147489633-0261f345-3a69-402a-bd51-80f5516ce82f.png)
+
+ 
    
  <h2> Visual representation </h2>
 Some examples of graphs visualizations:
@@ -46,23 +80,6 @@ Some examples of graphs visualizations:
  
 ![Figure_1](https://user-images.githubusercontent.com/93203695/147485865-6c30dac7-429d-43d5-ae08-988effedcd5c.png)
 
-<h3> Graph A1: </h3>
-
- ![Figure_2](https://user-images.githubusercontent.com/93203695/147485958-7eecd26d-c41a-4be9-82be-b8d03885c1db.png)
-
-
-<h3> Graph A2: </h3>
- 
-![Figure_3](https://user-images.githubusercontent.com/93203695/147486007-f1c425e3-a57d-4023-a8ba-812efc47fb91.png)
-
-<h3> Graph A3: </h3>
-
- ![Figure_4](https://user-images.githubusercontent.com/93203695/147486071-7f97bfbb-b8c3-4147-aaad-fc98f3412913.png)
-
-
-<h3> Graph A4: </h3>
- 
-![Figure_5](https://user-images.githubusercontent.com/93203695/147486130-4d551dd5-0c4c-46e3-8e71-e4e8ad83cb11.png)
 
 <h3> Graph A5: </h3>
  
