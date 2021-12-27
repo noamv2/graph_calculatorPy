@@ -54,11 +54,11 @@ class NodeTest(unittest.TestCase):
 
     def test_str(self):
         n = Node(0, (30.9, 31.8, 0))
-        self.assertEqual(n.__str__(), "Node(0)")
+        self.assertEqual(n.__str__(), "0: |edges out| 0 |edges in| 0")
 
     def test_repr(self):
         n = Node(0, (30.9, 31.8, 0))
-        self.assertEqual(n.__repr__(), "Node(0)")
+        self.assertEqual(n.__repr__(), "0: |edges out| 0 |edges in| 0")
 
 
 if __name__ == '__main__':

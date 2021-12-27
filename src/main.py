@@ -13,6 +13,37 @@ def check():
     check1()
     check2()
     check3()
+    # my_check()
+
+
+def my_check():
+    g = GraphAlgo()
+    file = "../data/myG.json"
+    g.load_from_json(file)
+    g.plot_graph()
+    g.graph.remove_node(10)
+    print(g.TSP([1, 4, 8, 5]))
+    g.graph.remove_edge(1,2)
+    g.plot_graph()
+    print(g.TSP([1, 4, 8, 5]))
+    g.plot_graph()
+    g.graph.add_edge(1,4,2)
+    print(g.TSP([1, 4, 8, 5]))
+    print(g.centerPoint())
+    g.plot_graph()
+    g.graph.remove_edge(9,8)
+    print(g.centerPoint())
+    g.plot_graph()
+    g.graph.remove_edge(8,9)
+    print(g.shortest_path(3,9))
+    print(g.shortest_path(9,3))
+    print(g.shortest_path(1,7))
+    g.graph.remove_node(2)
+    print(g.shortest_path(1, 7))
+    print(g.TSP([1,3,8,5]))
+
+    g.plot_graph()
+
 
 
 def check0():
