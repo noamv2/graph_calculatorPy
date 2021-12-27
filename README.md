@@ -34,3 +34,20 @@ Using the new implementation and after little bit of profiling, we managed to  g
  <p> To run the project, you will have to download/clone the project </p>
  
  <h2> Visual representation </h2>
+Some examples of graphs visualizations:
+<h3> Graph A0: </h3>
+
+
+<h3> Graph A1: </h3>
+
+
+<h3> Graph A2: </h3>
+
+
+<h3> Graph A3: </h3>
+
+
+<h3> Graph A4: </h3>
+
+
+<h3> Graph A5: </h3>
