@@ -31,8 +31,15 @@ Using the new implementation and after little bit of profiling, we managed to  g
  
  <h2> How to run the project </h2>
  
- <p> To run the project, you will have to download/clone the project </p>
- 
+ First, download/clone the project from git.
+Afterwards do the following:
+- Extract the downloaded zip file, and open the project in Python environment workspace.
+- In class "main" you run the project itself as described:
+  - There are 4 check functions that are already in the project. you can change each one of them as you desire, 
+  or to create a new check function.
+  - To upload a graph from a Json file do the following: 
+  - To create a graph (not via upload), do the following:
+   
  <h2> Visual representation </h2>
 Some examples of graphs visualizations:
 <h3> Graph A0: </h3>
